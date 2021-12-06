@@ -3,7 +3,7 @@ import { galleryItems } from './gallery-items.js';
 
 // ======= 1. Создание и рендер разметки по массиву данных galleryItems и предоставленному шаблону элемента галереи.
 
-// console.log(galleryItems);                            
+console.log(galleryItems);                            
 const galleryRef = document.querySelector('.gallery');
 // console.log(galleryRef);
 const galleryMarkUp = galleryItems.map(({ preview, original, description }) => {
@@ -32,6 +32,13 @@ galleryRef.insertAdjacentHTML('beforeend', galleryMarkUp);
 // ======= 4. Открытие модального окна по клику на элементе галереи. Для этого ознакомься с документацией и примерами.
 // ======= 5.Замена значения атрибута src элемента <img> в модальном окне перед открытием. Используй готовую разметку модального окна с изображением из примеров библиотеки basicLightbox.
 
+const closeByEsc = e => {
+    if (isVisible) {
+        console.log('working');
+        instance.close();
+    }
+};
+
 const onClickImage = e => {
 
     e.preventDefault();
@@ -39,21 +46,19 @@ const onClickImage = e => {
     if (e.target.nodeName !== 'IMG') {
         return;
     }
-    // console.dir(e.target.dataset.source);
-    const instance = basicLightbox.create(`<img src="${e.target.dataset.source}"/>`);
-
-    instance.show();
     
+    const instance = basicLightbox.create(`<img src="${e.target.dataset.source}"/>`);
+    instance.show();
+
+    const closeByEsc = e => {
+        if (e.keyCode == 27) {
+            console.log('working');
+            instance.close();
+        }
+
+    }
+
+    document.addEventListener('keydown', closeByEsc, {once: true});
 }
 
 galleryRef.addEventListener('click', onClickImage);
-
-
-
-
-
-
-
-
-
-
