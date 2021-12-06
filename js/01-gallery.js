@@ -1,10 +1,57 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-// Созда ние и рендер разметки по массиву данных galleryItems и предоставленному шаблону элемента галереи.
-// Реализация делегирования на div.gallery и получение url большого изображения.
-// Подключение скрипта и стилей библиотеки модального окна basicLightbox. Используй CDN сервис jsdelivr и добавь в проект ссылки на минифицированные (.min) файлы библиотеки.
-// Открытие модального окна по клику на элементе галереи. Для этого ознакомься с документацией и примерами.
-// Замена значения атрибута src элемента <img> в модальном окне перед открытием. Используй готовую разметку модального окна с изображением из примеров библиотеки basicLightbox.
+// ========= 1. Создание и рендер разметки по массиву данных galleryItems и предоставленному шаблону элемента галереи.
 
-console.log(galleryItems);
+// console.log(galleryItems);                            
+const galleryRef = document.querySelector('.gallery');
+// console.log(galleryRef);
+const galleryMarkUp = galleryItems.map(({ preview, original, description }) => {
+    
+   return ` <div class="gallery__item">
+    <a class="gallery__link" href="${original}">
+        <img
+        src="${preview}"
+        class="gallery__image"
+        alt="${description}"
+        data-source="${original}"
+        />
+    </a>
+    </div> `
+
+}).join(" ");
+// console.log(galleryMarkUp);
+galleryRef.insertAdjacentHTML('beforeend', galleryMarkUp);
+
+// ======= 2.Реализация делегирования на div.gallery и получение url большого изображения.
+
+const onClickImage = e => {
+
+    e.preventDefault();
+
+    if (e.target.nodeName !== 'IMG') {
+        return;
+    }
+
+    console.dir(e.target.dataset.source);
+    
+}
+
+galleryRef.addEventListener('click', onClickImage);
+
+// ======== 3. Подключение скрипта и стилей библиотеки модального окна basicLightbox. Используй CDN сервис 
+// jsdelivr и добавь в проект ссылки на минифицированные(.min) файлы библиотеки.
+
+
+// <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/basiclightbox@5.0.4/dist/basicLightbox.min.css"></link>
+// <script src="https://cdn.jsdelivr.net/npm/basiclightbox@5.0.4/dist/basicLightbox.min.js"></script>
+
+// ======== 4. Открытие модального окна по клику на элементе галереи. Для этого ознакомься с документацией и примерами.
+
+const backDrop = basicLightbox.create(`
+	<h1>Dynamic Content</h1>
+	<p>You can set the content of the lightbox with JS.</p>
+`);
+
+
+
