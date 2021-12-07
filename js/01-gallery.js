@@ -32,12 +32,6 @@ galleryRef.insertAdjacentHTML('beforeend', galleryMarkUp);
 // ======= 4. Открытие модального окна по клику на элементе галереи. Для этого ознакомься с документацией и примерами.
 // ======= 5.Замена значения атрибута src элемента <img> в модальном окне перед открытием. Используй готовую разметку модального окна с изображением из примеров библиотеки basicLightbox.
 
-const closeByEsc = e => {
-    if (isVisible) {
-        console.log('working');
-        instance.close();
-    }
-};
 
 const onClickImage = e => {
 
